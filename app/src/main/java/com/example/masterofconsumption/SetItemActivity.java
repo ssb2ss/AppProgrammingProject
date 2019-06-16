@@ -1,14 +1,17 @@
 package com.example.masterofconsumption;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 public class SetItemActivity extends AppCompatActivity implements View.OnClickListener {
 
-    Button backButton, applyButton;
+    ImageButton backButton;
+    Button applyButton;
     ListView listView;
 
     @Override
@@ -27,10 +30,17 @@ public class SetItemActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onClick(View v) {
         if(v == backButton){
-            //뒤로가기 버튼 눌렀을때
+            ChangeActivity(MainActivity.class);
         }
         else if(v == applyButton){
-            //확인 버튼 눌렀을때
+            ChangeActivity(ResultActivity.class);
         }
+    }
+
+    private void ChangeActivity(Class activity){
+        Intent intent = new Intent(SetItemActivity.this, activity);
+        startActivity(intent);
+
+        finish();
     }
 }

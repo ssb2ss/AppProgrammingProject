@@ -1,5 +1,6 @@
 package com.example.masterofconsumption;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -22,7 +23,10 @@ public class ResultActivity extends AppCompatActivity {
         applyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //확인 버튼 눌렀을때
+                Intent intent = new Intent(ResultActivity.this, MainActivity.class);
+                startActivity(intent);
+
+                finish();
             }
         });
     }
