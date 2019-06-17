@@ -12,18 +12,26 @@
         android:src="@drawable/drawable_back_button"
         android:background="#00ff0000"
         android:padding="0dp"
-        android:scaleType="centerCrop"
-        android:layout_marginBottom="20dp"/>
+        android:scaleType="centerCrop"/>
 
     <TextView
-        android:id="@+id/answer"
+        android:id="@+id/savedAnswerText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="누적 수식"
+        android:textSize="15sp"
+        android:gravity="right"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/answerText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="수식"
         android:textColor="#000000"
         android:gravity="right"
         android:textSize="30sp"
-        android:layout_marginBottom="50dp"/>
+        android:layout_marginBottom="30dp"/>
 
     <Button
         android:id="@+id/setItemButton"
@@ -222,7 +230,7 @@
                 android:textSize="30sp"
                 android:background="#b0b0b0"/>
             <Button
-                android:id="@+id/button_equals"
+                android:id="@+id/button_result"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
