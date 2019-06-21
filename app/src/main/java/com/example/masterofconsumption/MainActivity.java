@@ -13,6 +13,8 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+    BackButtonCloseHandler backButtonCloseHandler;
+
     ImageButton uploadButton;
     Button setItemButton, button_CE, button_C, button_backspace, button_result, button_plus, button_minus, button_multiply, button_divide;
     Button button_0, button_1, button_2, button_3, button_4, button_5, button_6, button_7, button_8, button_9, button_00, button_dot;
@@ -23,6 +25,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        backButtonCloseHandler = new BackButtonCloseHandler(this);
 
         answer = "";
         savedAnswer = "";
@@ -306,5 +310,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
         return splitArray.get(0);
+    }
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        backButtonCloseHandler.OnPressedBackButton();
     }
 }

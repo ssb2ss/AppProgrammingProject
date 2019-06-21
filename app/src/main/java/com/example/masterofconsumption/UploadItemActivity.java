@@ -14,6 +14,8 @@ import android.widget.Toast;
 
 public class UploadItemActivity extends AppCompatActivity implements View.OnClickListener {
 
+    BackButtonCloseHandler backButtonCloseHandler;
+
     ImageButton backButton;
     Button selectKindButton, selectImageButton, applyButton;
     EditText itemKind, itemName, itemPrice;
@@ -23,6 +25,8 @@ public class UploadItemActivity extends AppCompatActivity implements View.OnClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload_item);
+
+        backButtonCloseHandler = new BackButtonCloseHandler(this);
 
         backButton = findViewById(R.id.backButton);
         itemKind = findViewById(R.id.itemKind);
@@ -65,7 +69,7 @@ public class UploadItemActivity extends AppCompatActivity implements View.OnClic
             String name = itemName.getText().toString();
             String price = itemPrice.getText().toString();
 
-        String sql ="insert into uploaditem values('"+item+"','"+name+"','"+price+"')";
+            String sql ="insert into uploaditem values('"+item+"','"+name+"','"+price+"')";
             try {
                 db.execSQL(sql);
                 Toast.makeText(this, "물품 1개가 입력되었습니다.",
@@ -79,7 +83,9 @@ public class UploadItemActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
-    private void ChangeActivity(Class activity){
-
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        backButtonCloseHandler.OnPressedBackButton();
     }
 }

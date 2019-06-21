@@ -9,6 +9,8 @@ import android.widget.ListView;
 
 public class ResultActivity extends AppCompatActivity {
 
+    BackButtonCloseHandler backButtonCloseHandler;
+
     Button applyButton;
     ListView listView;
 
@@ -16,6 +18,8 @@ public class ResultActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
+
+        backButtonCloseHandler = new BackButtonCloseHandler(this);
 
         applyButton = findViewById(R.id.applyButton);
         listView = findViewById(R.id.listView);
@@ -29,5 +33,11 @@ public class ResultActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        backButtonCloseHandler.OnPressedBackButton();
     }
 }

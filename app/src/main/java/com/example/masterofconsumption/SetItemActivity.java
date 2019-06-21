@@ -10,6 +10,8 @@ import android.widget.ListView;
 
 public class SetItemActivity extends AppCompatActivity implements View.OnClickListener {
 
+    BackButtonCloseHandler backButtonCloseHandler;
+
     ImageButton backButton;
     Button applyButton;
     ListView listView;
@@ -18,6 +20,8 @@ public class SetItemActivity extends AppCompatActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_item);
+
+        backButtonCloseHandler = new BackButtonCloseHandler(this);
 
         backButton = findViewById(R.id.backButton);
         applyButton = findViewById(R.id.applyButton);
@@ -42,5 +46,11 @@ public class SetItemActivity extends AppCompatActivity implements View.OnClickLi
         startActivity(intent);
 
         finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        backButtonCloseHandler.OnPressedBackButton();
     }
 }
