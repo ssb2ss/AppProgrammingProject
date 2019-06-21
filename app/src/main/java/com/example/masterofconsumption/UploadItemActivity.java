@@ -103,14 +103,13 @@ public class UploadItemActivity extends AppCompatActivity implements View.OnClic
         else if(v == applyButton){
             //물건 업로드 버튼 눌렀을때
             DBHelper helper = new DBHelper(this);
-            SQLiteDatabase db =helper.getWritableDatabase();
+            SQLiteDatabase db = helper.getWritableDatabase();
 
             String item = itemKind.getText().toString();
             String name = itemName.getText().toString();
             String price = itemPrice.getText().toString();
-            byte[] image = getByteArrayFromDrawable(selectedImage);
 
-            String sql ="insert into uploaditem values('"+item+"','"+name+"','"+price+"','"+image+")";
+            String sql ="insert into uploaditem values('"+item+"','"+name+"','"+price+"')";
             try {
                 db.execSQL(sql);
                 Toast.makeText(this, "물품이 입력되었습니다.",
@@ -118,7 +117,6 @@ public class UploadItemActivity extends AppCompatActivity implements View.OnClic
             } catch (Exception e) {
                 Toast.makeText(this,"입력에 실패하였습니다.\n이미 입력되어 있는 물품인지 확인해주세요.",
                         Toast.LENGTH_SHORT).show();
-
             }
             db.close();
         }
@@ -138,16 +136,6 @@ public class UploadItemActivity extends AppCompatActivity implements View.OnClic
                 }
             }
         }
-    }
-
-    public byte[] getByteArrayFromDrawable(ImageView imageView){
-        Drawable d = imageView.getDrawable();
-        Bitmap bitmap = ((BitmapDrawable)d).getBitmap();
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-        byte[] data = stream.toByteArray();
-
-        return data;
     }
 
     @Override

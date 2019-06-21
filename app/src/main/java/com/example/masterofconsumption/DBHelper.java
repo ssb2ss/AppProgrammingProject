@@ -14,7 +14,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createSQL = "create table uploaditem"+"(item text," +"name text primary key,"+ "price integer,"+ "image blob)";
+        String createSQL = "create table uploaditem"+"(item text," +"name text primary key,"+ "price integer)";
         try
         {
             db.execSQL(createSQL);
