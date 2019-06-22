@@ -30,6 +30,8 @@ public class SetItemActivity extends AppCompatActivity implements View.OnClickLi
     ArrayList<ListViewSetItemKind> kindArrayList;
     ArrayList<ListViewSetItem>[] itemArrayList;
 
+    static ArrayList<ListViewSetItem> checkList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +48,7 @@ public class SetItemActivity extends AppCompatActivity implements View.OnClickLi
 
         kindArrayList = new ArrayList<>();
         itemArrayList = new ArrayList[4];
+        checkList = new ArrayList<ListViewSetItem>();
 
         initKindArrayList();
 
@@ -110,6 +113,14 @@ public class SetItemActivity extends AppCompatActivity implements View.OnClickLi
             finish();
         }
         else if(v == applyButton){
+            for(int i = 0; i < kindArrayList.size(); i++){
+                for(int j = 0; j < itemArrayList[i].size(); i++){
+                    if(itemArrayList[i].get(j).isChecked){
+                        checkList.add(itemArrayList[i].get(j));
+                    }
+                }
+            }
+
             Intent intent = new Intent(SetItemActivity.this, ResultActivity.class);
             startActivity(intent);
 
