@@ -21,8 +21,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     TextView answerText, savedAnswerText;
     String answer, savedAnswer;
 
-    public static double calcAnswer = 0;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -254,8 +252,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             answerText.setTextColor(Color.BLUE);
             savedAnswer = "";
             savedAnswerText.setText("");
-
-            calcAnswer = Double.parseDouble(answerText.toString());
         }
     }
 
@@ -271,8 +267,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         answerText.setTextColor(Color.BLACK);
         savedAnswerText.setText(savedAnswer);
-
-        calcAnswer = Double.parseDouble(answerText.toString());
     }
 
     private String Calculate(String string){
