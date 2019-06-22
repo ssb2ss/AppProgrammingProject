@@ -3,7 +3,9 @@
 
     <string-array name="dialog_itemKind">
         <item>음식</item>
-        <item></item>
+        <item>생활용품</item>
+        <item>문화</item>
+        <item>기타</item>
     </string-array>
 
 </resources>
