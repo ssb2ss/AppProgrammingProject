@@ -7,7 +7,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class ResultActivity extends AppCompatActivity {
 
@@ -16,7 +19,7 @@ public class ResultActivity extends AppCompatActivity {
 
     Button applyButton;
     ListView listView;
-    String[] datas;
+   TextView edit;
 
 
     @Override
@@ -29,10 +32,6 @@ public class ResultActivity extends AppCompatActivity {
         applyButton = findViewById(R.id.applyButton);
         listView = findViewById(R.id.listView);
 
-
-        DBHelper helper = new DBHelper(this);
-        SQLiteDatabase db = helper.getWritableDatabase();
-        Cursor cursor = db.rawQuery("select * from upload_db", null);
 
 
 
