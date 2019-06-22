@@ -9,10 +9,20 @@ public class ListViewSetItem {
     ImageView image;
     boolean isChecked;
 
+
     public ListViewSetItem(String _name, String _price) {
         name = _name;
         price = _price;
         isChecked = false;
+    }
+
+    public void check(){
+        if(isChecked){
+            isChecked = false;
+        }
+        else {
+            isChecked = true;
+        }
     }
 
 }

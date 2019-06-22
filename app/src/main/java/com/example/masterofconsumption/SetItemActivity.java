@@ -14,6 +14,7 @@ import android.widget.ExpandableListView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -28,10 +29,14 @@ public class SetItemActivity extends AppCompatActivity implements View.OnClickLi
     ArrayList<ListViewSetItemKind> kindArrayList;
     ArrayList<ListViewSetItem>[] itemArrayList;
 
+    int answer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_item);
+
+        Toast.makeText(this, Double.toString(MainActivity.calcAnswer), Toast.LENGTH_SHORT).show();
 
         backButtonCloseHandler = new BackButtonCloseHandler(this);
 
@@ -44,6 +49,10 @@ public class SetItemActivity extends AppCompatActivity implements View.OnClickLi
 
         kindArrayList = new ArrayList<>();
         itemArrayList = new ArrayList[4];
+
+        Intent intent = getIntent();
+
+        answer = Integer.parseInt(intent.getExtras().getString("answer"));
 
         initKindArrayList();
 
@@ -73,23 +82,46 @@ public class SetItemActivity extends AppCompatActivity implements View.OnClickLi
                 setImageViewBitmap(image, itemArrayList[3].get(itemArrayList[3].size() - 1).image);
             }
         }
+
+        listView.setAdapter(new ListViewSetItemAdapter(this, kindArrayList));
+
+        listView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+            @Override
+            public void onGroupExpand(int groupPosition) {
+                kindArrayList.get(groupPosition).unfold();
+            }
+        });
+
+        listView.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
+            @Override
+            public void onGroupCollapse(int groupPosition) {
+                kindArrayList.get(groupPosition).fold();
+            }
+        });
+
+        listView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+                kindArrayList.get(groupPosition).itemList.get(childPosition).check();
+                return false;
+            }
+        });
     }
 
     @Override
     public void onClick(View v) {
         if(v == backButton){
-            ChangeActivity(MainActivity.class);
+            Intent intent = new Intent(SetItemActivity.this, MainActivity.class);
+            startActivity(intent);
+
+            finish();
         }
         else if(v == applyButton){
-            ChangeActivity(ResultActivity.class);
+            Intent intent = new Intent(SetItemActivity.this, ResultActivity.class);
+            startActivity(intent);
+
+            finish();
         }
-    }
-
-    private void ChangeActivity(Class activity){
-        Intent intent = new Intent(SetItemActivity.this, activity);
-        startActivity(intent);
-
-        finish();
     }
 
     public void setImageViewBitmap(byte[] imageByte, ImageView imageView){
@@ -103,7 +135,7 @@ public class SetItemActivity extends AppCompatActivity implements View.OnClickLi
         kindArrayList.add(new ListViewSetItemKind("기타", itemArrayList[3]));
     }
 
-    @Override
+   @Override
     public void onBackPressed() {
         //super.onBackPressed();
         backButtonCloseHandler.OnPressedBackButton();

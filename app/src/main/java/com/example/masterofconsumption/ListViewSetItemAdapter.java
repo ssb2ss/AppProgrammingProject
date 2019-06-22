@@ -2,6 +2,7 @@ package com.example.masterofconsumption;
 
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -86,6 +87,12 @@ public class ListViewSetItemAdapter extends BaseExpandableListAdapter {
 
         TextView textView = view.findViewById(R.id.setItemName);
         textView.setText(kindList.get(groupPosition).itemList.get(childPosition).name);
+        if(kindList.get(groupPosition).itemList.get(childPosition).isChecked){
+            textView.setTextColor(Color.RED);
+        }
+        else {
+            textView.setTextColor(Color.BLACK);
+        }
 
         return view;
     }

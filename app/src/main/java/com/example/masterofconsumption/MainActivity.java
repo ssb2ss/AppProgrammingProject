@@ -21,6 +21,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     TextView answerText, savedAnswerText;
     String answer, savedAnswer;
 
+    public static double calcAnswer = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,10 +92,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         if(v == uploadButton){
-            ChangeActivity(UploadItemActivity.class);
+            Intent intent = new Intent(MainActivity.this, UploadItemActivity.class);
+            startActivity(intent);
+
+            finish();
         }
         else if(v == setItemButton){
-            ChangeActivity(SetItemActivity.class);
+            Intent intent = new Intent(MainActivity.this, SetItemActivity.class);
+
+            intent.putExtra("answer", answerText.getText().toString());
+
+            startActivity(intent);
+
+            finish();
         }
         else if(v == button_1){
             answer += "1";
@@ -243,14 +254,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             answerText.setTextColor(Color.BLUE);
             savedAnswer = "";
             savedAnswerText.setText("");
+
+            calcAnswer = Double.parseDouble(answerText.toString());
         }
-    }
-
-    private void ChangeActivity(Class activity){
-        Intent intent = new Intent(MainActivity.this, activity);
-        startActivity(intent);
-
-        finish();
     }
 
     private void UpdateAnswerText(){
@@ -265,6 +271,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         answerText.setTextColor(Color.BLACK);
         savedAnswerText.setText(savedAnswer);
+
+        calcAnswer = Double.parseDouble(answerText.toString());
     }
 
     private String Calculate(String string){
