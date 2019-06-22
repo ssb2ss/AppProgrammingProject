@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteDatabase;
 import android.content.Intent;
+import android.database.sqlite.SQLiteStatement;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -12,6 +13,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,6 +21,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -108,15 +111,23 @@ public class UploadItemActivity extends AppCompatActivity implements View.OnClic
             String item = itemKind.getText().toString();
             String name = itemName.getText().toString();
             String price = itemPrice.getText().toString();
+            byte[] image = getBytes(selectedImage);
 
-            String sql ="insert into uploaditem values('"+item+"','"+name+"','"+price+"')";
+            String sql ="insert into uploaditem values(?,?,?,?)";
+            SQLiteStatement insertStmt = db.compileStatement(sql);
+            insertStmt.clearBindings();
+            insertStmt.bindString(1, item);
+            insertStmt.bindString(2, name);
+            insertStmt.bindString(3, price);
+            insertStmt.bindBlob(4, image);
             try {
-                db.execSQL(sql);
+                insertStmt.executeInsert();
                 Toast.makeText(this, "물품이 입력되었습니다.",
                         Toast.LENGTH_SHORT).show();
             } catch (Exception e) {
                 Toast.makeText(this,"입력에 실패하였습니다.\n이미 입력되어 있는 물품인지 확인해주세요.",
                         Toast.LENGTH_SHORT).show();
+                Log.e("SQL", sql);
             }
             db.close();
         }
@@ -136,6 +147,14 @@ public class UploadItemActivity extends AppCompatActivity implements View.OnClic
                 }
             }
         }
+    }
+
+    public byte[] getBytes(ImageView imageView){
+        Bitmap bitmap = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG,0,stream);
+
+        return stream.toByteArray();
     }
 
     @Override
