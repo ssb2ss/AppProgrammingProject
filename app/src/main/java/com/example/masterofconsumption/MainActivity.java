@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ImageButton uploadButton;
     Button setItemButton, button_CE, button_C, button_backspace, button_result, button_plus, button_minus, button_multiply, button_divide;
     Button button_0, button_1, button_2, button_3, button_4, button_5, button_6, button_7, button_8, button_9, button_00, button_dot;
-    TextView answerText, savedAnswerText;
+    static TextView answerText, savedAnswerText;
     String answer, savedAnswer;
 
     @Override

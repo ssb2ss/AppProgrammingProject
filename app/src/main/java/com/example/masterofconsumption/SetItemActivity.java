@@ -14,6 +14,7 @@ import android.widget.ExpandableListView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -36,7 +37,7 @@ public class SetItemActivity extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_item);
 
-        Toast.makeText(this, Double.toString(MainActivity.calcAnswer), Toast.LENGTH_SHORT).show();
+       Toast.makeText(this, MainActivity.answerText.getText(), Toast.LENGTH_SHORT).show();
 
         backButtonCloseHandler = new BackButtonCloseHandler(this);
 
