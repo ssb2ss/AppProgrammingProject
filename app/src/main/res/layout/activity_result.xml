@@ -20,7 +20,9 @@
         android:layout_height="350dp"
         android:layout_gravity="center"
         android:layout_margin="20dp"
-        android:background="@drawable/drawable_border">
+        android:background="@drawable/drawable_border"
+        android:padding="5dp"
+        android:fillViewport="true">
 
         <ListView
             android:id="@+id/listView"

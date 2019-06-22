@@ -1,6 +1,5 @@
 package com.example.masterofconsumption;
 
-
 import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -15,11 +14,16 @@ import java.util.ArrayList;
 public class ListViewSetItemAdapter extends BaseExpandableListAdapter {
 
     Context context;
+    int groupLayout, childLayout;
     ArrayList<ListViewSetItemKind> kindList;
+    LayoutInflater inflater;
 
-    public ListViewSetItemAdapter(Context _context, ArrayList<ListViewSetItemKind> arrayList){
+    public ListViewSetItemAdapter(Context _context, int _groupLayout, int _childLayout, ArrayList<ListViewSetItemKind> arrayList){
         context = _context;
+        groupLayout = _groupLayout;
+        childLayout = _childLayout;
         kindList = arrayList;
+        inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
@@ -54,63 +58,46 @@ public class ListViewSetItemAdapter extends BaseExpandableListAdapter {
 
     @Override
     public boolean hasStableIds() {
-        return false;
+        return true;
     }
 
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
-        View view;
         if(convertView == null){
-            view = getParentGenericView();
-        }
-        else {
-            view = convertView;
+            convertView = inflater.inflate(groupLayout, parent, false);
         }
 
-        TextView textView = view.findViewById(R.id.setItemKindText);
-        ImageView imageView = view.findViewById(R.id.setItemKindImage);
+        TextView textView = convertView.findViewById(R.id.setItemKindText);
+        ImageView imageView = convertView.findViewById(R.id.setItemKindImage);
         textView.setText(kindList.get(groupPosition).name);
         kindList.get(groupPosition).imageView = imageView;
+        if(isExpanded){
+            kindList.get(groupPosition).unfold();
+        }
+        else {
+            kindList.get(groupPosition).fold();
+        }
 
-        return view;
+        return convertView;
     }
 
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-        View view;
         if(convertView == null){
-            view = getChildGenericView();
-        }
-        else {
-            view = convertView;
+            convertView = inflater.inflate(childLayout, parent, false);
         }
 
-        TextView textView = view.findViewById(R.id.setItemName);
+        TextView textView = convertView.findViewById(R.id.setItemName);
+        ImageView imageView = convertView.findViewById(R.id.setItemImage);
+        kindList.get(groupPosition).itemList.get(childPosition).checkBox = convertView.findViewById(R.id.checkbox);
         textView.setText(kindList.get(groupPosition).itemList.get(childPosition).name);
-        if(kindList.get(groupPosition).itemList.get(childPosition).isChecked){
-            textView.setTextColor(Color.RED);
-        }
-        else {
-            textView.setTextColor(Color.BLACK);
-        }
+        imageView.setImageBitmap(kindList.get(groupPosition).itemList.get(childPosition).image);
 
-        return view;
+        return convertView;
     }
 
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
-        return false;
-    }
-
-    public View getChildGenericView() {
-        LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.listview_setitem, null);
-        return view;
-    }
-
-    public View getParentGenericView() {
-        LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.listview_setitem_kind, null);
-        return view;
+        return true;
     }
 }

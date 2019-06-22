@@ -5,8 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="horizontal"
     android:padding="20dp"
-    android:background="#909090"
-    android:onClick="onFold">
+    android:background="#909090">
 
     <TextView
         android:id="@+id/setItemKindText"
@@ -16,13 +15,13 @@
         android:text="물건 종류"
         android:textColor="#000000"
         android:textStyle="bold"
-        android:textSize="30sp"
+        android:textSize="25sp"
         android:layout_gravity="center"/>
 
     <ImageView
         android:id="@+id/setItemKindImage"
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:layout_weight="1"
         android:src="@drawable/drawable_downarrow"
         android:layout_gravity="center"/>

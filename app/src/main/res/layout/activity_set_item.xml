@@ -30,7 +30,8 @@
         android:layout_gravity="center"
         android:layout_margin="20dp"
         android:background="@drawable/drawable_border"
-        android:padding="5dp">
+        android:padding="5dp"
+        android:fillViewport="true">
 
         <ExpandableListView
             android:id="@+id/listView"

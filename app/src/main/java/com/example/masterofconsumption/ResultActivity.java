@@ -32,9 +32,6 @@ public class ResultActivity extends AppCompatActivity {
         applyButton = findViewById(R.id.applyButton);
         listView = findViewById(R.id.listView);
 
-
-
-
         applyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
