@@ -97,9 +97,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         else if(v == setItemButton){
             Intent intent = new Intent(MainActivity.this, SetItemActivity.class);
-
-            intent.putExtra("answer", answerText.getText().toString());
-
             startActivity(intent);
 
             finish();
@@ -278,16 +275,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         for(int i = 0; i < splitArray.size(); i++){
-            double temp = 0;
+            int temp = 0;
 
             if (splitArray.get(i).equals("*")) {
-                temp = Double.parseDouble(splitArray.get(i - 1)) * Double.parseDouble(splitArray.get(i + 1));
+                temp = Integer.parseInt(splitArray.get(i - 1)) * Integer.parseInt(splitArray.get(i + 1));
                 splitArray.set(i - 1, temp + "");
                 splitArray.remove(i + 1);
                 splitArray.remove(i);
                 i--;
             } else if (splitArray.get(i).equals("/")) {
-                temp = Double.parseDouble(splitArray.get(i - 1)) / Double.parseDouble(splitArray.get(i + 1));
+                temp = Integer.parseInt(splitArray.get(i - 1)) / Integer.parseInt(splitArray.get(i + 1));
                 splitArray.set(i - 1, temp + "");
                 splitArray.remove(i + 1);
                 splitArray.remove(i);
@@ -295,16 +292,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
         for(int i = 0; i < splitArray.size(); i++){
-            double temp = 0;
+            int temp = 0;
 
             if (splitArray.get(i).equals("+")) {
-                temp = Double.parseDouble(splitArray.get(i - 1)) + Double.parseDouble(splitArray.get(i + 1));
+                temp = Integer.parseInt(splitArray.get(i - 1)) + Integer.parseInt(splitArray.get(i + 1));
                 splitArray.set(i - 1, temp + "");
                 splitArray.remove(i + 1);
                 splitArray.remove(i);
                 i--;
             } else if (splitArray.get(i).equals("-")) {
-                temp = Double.parseDouble(splitArray.get(i - 1)) - Double.parseDouble(splitArray.get(i + 1));
+                temp = Integer.parseInt(splitArray.get(i - 1)) - Integer.parseInt(splitArray.get(i + 1));
                 splitArray.set(i - 1, temp + "");
                 splitArray.remove(i + 1);
                 splitArray.remove(i);

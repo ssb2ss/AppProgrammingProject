@@ -30,14 +30,10 @@ public class SetItemActivity extends AppCompatActivity implements View.OnClickLi
     ArrayList<ListViewSetItemKind> kindArrayList;
     ArrayList<ListViewSetItem>[] itemArrayList;
 
-    int answer;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_item);
-
-       Toast.makeText(this, MainActivity.answerText.getText(), Toast.LENGTH_SHORT).show();
 
         backButtonCloseHandler = new BackButtonCloseHandler(this);
 
@@ -50,10 +46,6 @@ public class SetItemActivity extends AppCompatActivity implements View.OnClickLi
 
         kindArrayList = new ArrayList<>();
         itemArrayList = new ArrayList[4];
-
-        Intent intent = getIntent();
-
-        answer = Integer.parseInt(intent.getExtras().getString("answer"));
 
         initKindArrayList();
 
