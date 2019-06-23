@@ -97,7 +97,7 @@ public class SetItemActivity extends AppCompatActivity implements View.OnClickLi
         else if(v == applyButton){
             for(int i = 0; i < kindArrayList.size(); i++){
                 for(int j = 0; j < itemArrayList.get(i).size(); j++){
-                    if(itemArrayList.get(i).get(j).checkBox.isChecked()){
+                    if(itemArrayList.get(i).get(j).isChecked){
                         checkList.add(itemArrayList.get(i).get(j));
                     }
                 }

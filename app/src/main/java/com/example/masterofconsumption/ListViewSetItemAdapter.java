@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -82,16 +83,22 @@ public class ListViewSetItemAdapter extends BaseExpandableListAdapter {
     }
 
     @Override
-    public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+    public View getChildView(final int groupPosition, final int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         if(convertView == null){
             convertView = inflater.inflate(childLayout, parent, false);
         }
 
         TextView textView = convertView.findViewById(R.id.setItemName);
         TextView textViewPrice = convertView.findViewById(R.id.setItemPrice);
-        kindList.get(groupPosition).itemList.get(childPosition).checkBox = convertView.findViewById(R.id.checkbox);
+        CheckBox checkBox = convertView.findViewById(R.id.setItemCheckbox);
         textView.setText(kindList.get(groupPosition).itemList.get(childPosition).name);
         textViewPrice.setText(kindList.get(groupPosition).itemList.get(childPosition).price);
+        checkBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                kindList.get(groupPosition).itemList.get(childPosition).check();
+            }
+        });
 
         return convertView;
     }
