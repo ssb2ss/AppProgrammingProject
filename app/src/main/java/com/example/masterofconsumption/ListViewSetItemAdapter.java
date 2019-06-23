@@ -88,10 +88,10 @@ public class ListViewSetItemAdapter extends BaseExpandableListAdapter {
         }
 
         TextView textView = convertView.findViewById(R.id.setItemName);
-        ImageView imageView = convertView.findViewById(R.id.setItemImage);
+        TextView textViewPrice = convertView.findViewById(R.id.setItemPrice);
         kindList.get(groupPosition).itemList.get(childPosition).checkBox = convertView.findViewById(R.id.checkbox);
         textView.setText(kindList.get(groupPosition).itemList.get(childPosition).name);
-        imageView.setImageBitmap(kindList.get(groupPosition).itemList.get(childPosition).image);
+        textViewPrice.setText(kindList.get(groupPosition).itemList.get(childPosition).price);
 
         return convertView;
     }

@@ -64,9 +64,7 @@ public class SetItemActivity extends AppCompatActivity implements View.OnClickLi
         while(cursor.moveToNext()){
             String name = cursor.getString(1);
             String price = cursor.getString(2);
-            byte[] image = cursor.getBlob(3);
             ListViewSetItem item = new ListViewSetItem(name, price);
-            item.image = setImageViewBitmap(image);
             if(cursor.getString(0).equals("음식")){
                 itemArrayList.get(0).add(item);
             }
@@ -110,10 +108,6 @@ public class SetItemActivity extends AppCompatActivity implements View.OnClickLi
 
             finish();
         }
-    }
-
-    public Bitmap setImageViewBitmap(byte[] imageByte){
-        return BitmapFactory.decodeByteArray(imageByte, 0, imageByte.length);
     }
 
     private void initKindArrayList(){

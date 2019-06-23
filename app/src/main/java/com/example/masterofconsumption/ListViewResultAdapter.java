@@ -49,7 +49,7 @@ public class ListViewResultAdapter extends BaseAdapter {
 
         name.setText(datas.get(position).name);
         price.setText(datas.get(position).price + "원");
-        value.setText(datas.get(position).value + "개");
+        value.setText("X " + datas.get(position).value);
 
         return convertView;
     }

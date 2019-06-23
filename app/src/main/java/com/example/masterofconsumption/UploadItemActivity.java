@@ -32,9 +32,8 @@ public class UploadItemActivity extends AppCompatActivity implements View.OnClic
     BackButtonCloseHandler backButtonCloseHandler;
 
     ImageButton backButton;
-    Button selectKindButton, selectImageButton, applyButton;
+    Button selectKindButton, applyButton;
     EditText itemKind, itemName, itemPrice;
-    ImageView selectedImage;
 
     AlertDialog itemKindList;
 
@@ -52,13 +51,10 @@ public class UploadItemActivity extends AppCompatActivity implements View.OnClic
         selectKindButton = findViewById(R.id.selectKindButton);
         itemName = findViewById(R.id.itemName);
         itemPrice = findViewById(R.id.itemPrice);
-        selectedImage = findViewById(R.id.selectedImage);
-        selectImageButton = findViewById(R.id.selectImageButton);
         applyButton = findViewById(R.id.applyButton);
 
         backButton.setOnClickListener(this);
         selectKindButton.setOnClickListener(this);
-        selectImageButton.setOnClickListener(this);
         applyButton.setOnClickListener(this);
 
         index = 0;
@@ -96,13 +92,6 @@ public class UploadItemActivity extends AppCompatActivity implements View.OnClic
             itemKindList = builder.create();
             itemKindList.show();
         }
-        else if(v == selectImageButton){
-            //이미지 검색 버튼 눌렀을때
-            Intent intent = new Intent();
-            intent.setType("image/*");
-            intent.setAction(Intent.ACTION_GET_CONTENT);
-            startActivityForResult(intent, 1);
-        }
         else if(v == applyButton){
             //물건 업로드 버튼 눌렀을때
             DBHelper helper = new DBHelper(this);
@@ -111,15 +100,13 @@ public class UploadItemActivity extends AppCompatActivity implements View.OnClic
             String item = itemKind.getText().toString();
             String name = itemName.getText().toString();
             String price = itemPrice.getText().toString();
-            byte[] image = getBytes(selectedImage);
 
-            String sql ="insert into uploaditem values(?,?,?,?)";
+            String sql ="insert into uploaditem values(?,?,?)";
             SQLiteStatement insertStmt = db.compileStatement(sql);
             insertStmt.clearBindings();
             insertStmt.bindString(1, item);
             insertStmt.bindString(2, name);
             insertStmt.bindString(3, price);
-            insertStmt.bindBlob(4, image);
             try {
                 insertStmt.executeInsert();
                 Toast.makeText(this, "물품이 입력되었습니다.",
@@ -131,52 +118,6 @@ public class UploadItemActivity extends AppCompatActivity implements View.OnClic
             }
             db.close();
         }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if(requestCode == 1){
-            if(resultCode == RESULT_OK){
-                try {
-                    InputStream in = getContentResolver().openInputStream(data.getData());
-                    Bitmap img = BitmapFactory.decodeStream(in);
-                    in.close();
-                    selectedImage.setImageBitmap(img);
-                } catch (Exception e){
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
-
-    public byte[] getBytes(ImageView imageView){
-        Bitmap bitmap = resizeImage(imageView);
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 0, stream);
-
-        return stream.toByteArray();
-    }
-
-    private Bitmap resizeImage(ImageView imageView){
-        BitmapFactory.Options options = new BitmapFactory.Options();
-
-        int width = options.outWidth;
-        int height = options.outHeight;
-        int sampleSize = 1;
-
-        while (true) {
-            if (width / 2 < 500 || height / 2 < 500) {
-                break;
-            }
-            width /= 2;
-            height /= 2;
-            sampleSize *= 2;
-        }
-
-        options.inSampleSize = sampleSize;
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), imageView.getId(), options);
-
-        return bitmap;
     }
 
     @Override

@@ -7,7 +7,6 @@ public class ListViewSetItem {
 
     String name;
     String price;
-    Bitmap image;
     CheckBox checkBox;
 
     public ListViewSetItem(String _name, String _price) {

@@ -18,6 +18,7 @@ public class ResultActivity extends AppCompatActivity {
 
     BackButtonCloseHandler backButtonCloseHandler;
 
+    TextView priceText;
     Button applyButton;
     ListView listView;
 
@@ -30,8 +31,11 @@ public class ResultActivity extends AppCompatActivity {
 
         backButtonCloseHandler = new BackButtonCloseHandler(this);
 
+        priceText = findViewById(R.id.priceText);
         applyButton = findViewById(R.id.applyButton);
         listView = findViewById(R.id.listView);
+
+        priceText.setText(MainActivity.answerText.getText().toString());
 
         arrayList = new ArrayList<>();
 
