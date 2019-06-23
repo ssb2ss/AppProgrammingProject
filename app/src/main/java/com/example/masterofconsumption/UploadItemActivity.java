@@ -150,11 +150,33 @@ public class UploadItemActivity extends AppCompatActivity implements View.OnClic
     }
 
     public byte[] getBytes(ImageView imageView){
-        Bitmap bitmap = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
+        Bitmap bitmap = resizeImage(imageView);
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG,0,stream);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 0, stream);
 
         return stream.toByteArray();
+    }
+
+    private Bitmap resizeImage(ImageView imageView){
+        BitmapFactory.Options options = new BitmapFactory.Options();
+
+        int width = options.outWidth;
+        int height = options.outHeight;
+        int sampleSize = 1;
+
+        while (true) {
+            if (width / 2 < 500 || height / 2 < 500) {
+                break;
+            }
+            width /= 2;
+            height /= 2;
+            sampleSize *= 2;
+        }
+
+        options.inSampleSize = sampleSize;
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), imageView.getId(), options);
+
+        return bitmap;
     }
 
     @Override

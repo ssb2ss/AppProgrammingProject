@@ -12,15 +12,16 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class ResultActivity extends AppCompatActivity {
 
     BackButtonCloseHandler backButtonCloseHandler;
 
-
     Button applyButton;
     ListView listView;
-   TextView edit;
 
+    ArrayList<ListViewResult> arrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +32,20 @@ public class ResultActivity extends AppCompatActivity {
 
         applyButton = findViewById(R.id.applyButton);
         listView = findViewById(R.id.listView);
+
+        arrayList = new ArrayList<>();
+
+        for(int i = 0; i < SetItemActivity.checkList.size(); i++){
+            String name = SetItemActivity.checkList.get(i).name;
+            int price = Integer.parseInt(SetItemActivity.checkList.get(i).price);
+            int value = Integer.parseInt(MainActivity.answerText.getText().toString())/Integer.parseInt(SetItemActivity.checkList.get(i).price);
+
+            ListViewResult temp = new ListViewResult(name, price, value);
+            arrayList.add(temp);
+        }
+
+        ListViewResultAdapter adapter = new ListViewResultAdapter(this, R.layout.result_item, arrayList);
+        listView.setAdapter(adapter);
 
         applyButton.setOnClickListener(new View.OnClickListener() {
             @Override
